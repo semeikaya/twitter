@@ -1,26 +1,33 @@
 const Comment = require('../models/Comment.model.js')
 
-module.exports.postController = {
+module.exports.commentController = {
     addComment: async (req, res) => {
-        const { text, postedBy, comments, likes, } = req.body
+        const { text, commentBy, post } = req.body
         try {
-            const post = await Post.create({
+            await Comment.create({
                 text,
-                postedBy,
-                comments,
-                likes,
+                commentBy,
+                post,
             })
-            res.json(post)
+            res.json('Комментарий добавлен')
         } catch (error) {
             res.json(error.message)
         }
     },
-    getComment: async (req, res) => {
+    getComments: async (req, res) => {
         try {
-            const post = Comment.find().populate('comments likes')
-            res.json(post)
+            const comment = await Comment.find().populate('commentBy post')
+            res.json(comment)
         } catch (error) {
             res.json(error.message)
         }
     },
+    deleteComment: async (req, res) => {
+        try {
+            await Comment.findByIdAndRemove(req.params.id)
+            res.json('Комментарий удален')
+        } catch (error) {
+            res.json(error.message)
+        }
+    }
 }

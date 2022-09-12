@@ -5,9 +5,9 @@ app.use(express.json())
 
 app.use(require('./routes/users.route.js'))
 app.use(require('./routes/posts.route.js'))
-// app.use(require('./routes/comments.route.js'))
+app.use(require('./routes/comments.route.js'))
 
-mongoose.connect('mongodb+srv://bersyak:web2000web@cluster0.akjwcf0.mongodb.net/twitter', (err) => {
+mongoose.connect('mongodb+srv://bersyak:u3wOhcqF3c3a4sj1@cluster0.akjwcf0.mongodb.net/twitter', (err) => {
     if (err) {
         console.log(err)
         return
